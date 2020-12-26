@@ -2,22 +2,19 @@ from nonebot import on_command
 from nonebot.rule import to_me
 from nonebot.adapters.cqhttp import Bot, Event
 
-weather = on_command("天气", rule=to_me(), priority=5)
-@weather.handle()
+
+nnhr = on_command("考研运势")
+
+@nnhr.handle()
 async def handle_first_receive(bot: Bot, event: Event, state: dict):
-    args = str(event.message).strip()  # 首次发送命令时跟随的参数，例：/天气 上海，则args为上海
-    if args:
-        state["city"] = args  # 如果用户发送了参数则直接赋值
-
-
-@weather.got("city", prompt="你想查询哪个城市的天气呢？")
-async def handle_city(bot: Bot, event: Event, state: dict):
-    city = state["city"]
-    if city not in ["上海", "北京"]:
-        await weather.reject("你想查询的城市暂不支持，请重新输入！")
-    city_weather = await get_weather(city)
-    await weather.finish(city_weather)
-
-
-async def get_weather(city: str):
-    return f"{city}的天气是..."
+    print(event.message)
+    ret_msg = "你说的这个东西，爷不知道"
+    if (str(event.message) == "622"):
+        ret_msg = "一\'研\'为定！"
+    elif (str(event.message) == "616"):
+        ret_msg = "啊这，这么悲伤的事情，不忍心说啊。"
+    elif (str(event.message) == "纯爱战士"):
+        ret_msg = "纯爱战士一次上岸"
+    elif (str(event.message) == "牛头人"):
+        ret_msg = "牛头人biss"
+    await bot.send(message=ret_msg, event=event)

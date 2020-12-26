@@ -8,6 +8,7 @@ def bot_init():
 
     # loading plugins
     nonebot.load_builtin_plugins()
+    nonebot.load_plugins('plugins')
     nonebot.get_asgi()
 
 if __name__ == "__main__":
