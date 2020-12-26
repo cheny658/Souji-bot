@@ -14,6 +14,5 @@ if __name__ == "__main__":
     # init
     bot_init()
 
-
     # start
     nonebot.run()
