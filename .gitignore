@@ -3,3 +3,4 @@
 venv
 local_server
 __pycache__
+test.py

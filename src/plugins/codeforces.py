@@ -1,20 +1,60 @@
+import requests
+import json
+import time
 from nonebot import on_command
 from nonebot.rule import to_me
 from nonebot.adapters.cqhttp import Bot, Event
 
+help_cmd = on_command('help')
+@help_cmd.handle()
+async def get_help(bot: Bot, event: Event, stat: dict):
+    # TODO: 引导功能
+    ret_msg = '引导功能还在开发中哦'
+    await bot.send(message=ret_msg, event=event)
 
-nnhr = on_command("考研运势")
+user_info = on_command('info')
+@user_info.handle()
+async def get_user_info(bot: Bot, event: Event, state: dict):
+    ret_msg = ''
+    cur_time = time.time()
 
-@nnhr.handle()
-async def handle_first_receive(bot: Bot, event: Event, state: dict):
-    print(event.message)
-    ret_msg = "你说的这个东西，爷不知道"
-    if (str(event.message) == "622"):
-        ret_msg = "一\'研\'为定！"
-    elif (str(event.message) == "616"):
-        ret_msg = "啊这，这么悲伤的事情，不忍心说啊。"
-    elif (str(event.message) == "纯爱战士"):
-        ret_msg = "纯爱战士一次上岸"
-    elif (str(event.message) == "牛头人"):
-        ret_msg = "牛头人biss"
+    # Parse url, then get json_object
+    name = str(event.message)
+    if (name == ''):
+        await bot.send(message='输入你想要查的人吧，例如/info vjudge1', event=event)
+        return
+    url = 'http://codeforces.com/api/user.info?handles=' + name
+    info_result = requests.get(url)
+    json_obj = json.loads(info_result.text)
+
+    # Structure information
+    if (str(json_obj['status']) == 'OK'):
+        ret_msg = name + '的codeforces信息:\n\n'
+        user_info = json_obj['result'][0]
+
+        # Process rating and rank
+        if ('rating' in user_info):
+            user_rating = str(user_info['rating'])
+            user_rank = str(user_info['rank'])
+            user_max_rating = str(user_info['maxRating'])
+            user_max_rank = str(user_info['maxRank'])
+            ret_msg += 'rating: ' + user_rating + '\n'
+            ret_msg += 'rank: ' + user_rank + '\n'
+            ret_msg += 'max rating: ' + user_max_rating + '\n'
+            ret_msg += 'max rank: ' + user_max_rank + '\n'
+        else:
+            ret_msg += '这家伙好懒，还没打过比赛呢！\n'
+
+        # Process register time
+        register_time = float(user_info['registrationTimeSeconds'])
+        time_span = (cur_time - register_time) / (86400.0 * 365.0)
+        time_span = round(time_span, 1)
+        ret_msg += '是一位练习时长' + str(time_span) + '年的算法竞赛生\n'
+
+    else:
+        ret_msg = '没这个人！'
+
+    # Send message
+    if ret_msg[-1] == '\n':
+        ret_msg = ret_msg[0: -1]
     await bot.send(message=ret_msg, event=event)

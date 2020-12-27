@@ -7,7 +7,6 @@ def bot_init():
     driver.register_adapter("cqhttp", CQHTTPBot)
 
     # loading plugins
-    nonebot.load_builtin_plugins()
     nonebot.load_plugins('plugins')
     nonebot.get_asgi()
 
