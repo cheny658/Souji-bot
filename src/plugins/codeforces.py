@@ -21,7 +21,7 @@ async def get_user_info(bot: Bot, event: Event, state: dict):
     # Parse url, then get json_object
     name = str(event.message)
     if (name == ''):
-        await bot.send(message='输入你想要查的人吧，例如/info vjudge1', event=event)
+        await bot.send(message='输入想要查的人吧，如/info tourist', event=event)
         return
     url = 'http://codeforces.com/api/user.info?handles=' + name
     info_result = requests.get(url)
@@ -29,8 +29,8 @@ async def get_user_info(bot: Bot, event: Event, state: dict):
 
     # Structure information
     if (str(json_obj['status']) == 'OK'):
-        ret_msg = name + '的codeforces信息:\n\n'
         user_info = json_obj['result'][0]
+        ret_msg = user_info['handle'] + '的codeforces信息:\n\n'
 
         # Process rating and rank
         if ('rating' in user_info):
