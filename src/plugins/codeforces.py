@@ -5,14 +5,14 @@ from nonebot import on_command
 from nonebot.rule import to_me
 from nonebot.adapters.cqhttp import Bot, Event
 
-user_info = on_command('info')
-@user_info.handle()
+user_info_cmd = on_command('info')
+@user_info_cmd.handle()
 async def get_user_info(bot: Bot, event: Event, state: dict):
     cur_time = time.time()
 
     # Parse url, then get json_object
     name = str(event.message)
-    if (name == ''):
+    if name == '':
         await bot.send(message='输入想要查的人吧，如/info tourist', event=event)
         return
 
@@ -26,12 +26,12 @@ async def get_user_info(bot: Bot, event: Event, state: dict):
     json_obj = json.loads(info_result.text)
 
     # Structure information
-    if (str(json_obj['status']) == 'OK'):
+    if str(json_obj['status']) == 'OK':
         user_info = json_obj['result'][0]
         ret_msg = user_info['handle'] + '的codeforces信息:\n\n'
 
         # Process rating and rank
-        if ('rating' in user_info):
+        if 'rating' in user_info:
             user_rating = str(user_info['rating'])
             user_rank = str(user_info['rank'])
             user_max_rating = str(user_info['maxRating'])
@@ -75,3 +75,8 @@ async def get_user_info(bot: Bot, event: Event, state: dict):
     if ret_msg[-1] == '\n':
         ret_msg = ret_msg[0: -1]
     await bot.send(message=ret_msg, event=event)
+
+contest_info_cmd = on_command('ct')
+@contest_info_cmd.handle()
+async def get_contest_info(bot: Bot, event: Event, state: dict):
+
