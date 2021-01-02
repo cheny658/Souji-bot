@@ -5,13 +5,6 @@ from nonebot import on_command
 from nonebot.rule import to_me
 from nonebot.adapters.cqhttp import Bot, Event
 
-help_cmd = on_command('help')
-@help_cmd.handle()
-async def get_help(bot: Bot, event: Event, stat: dict):
-    # TODO: 引导功能
-    ret_msg = '引导功能还在开发中哦'
-    await bot.send(message=ret_msg, event=event)
-
 user_info = on_command('info')
 @user_info.handle()
 async def get_user_info(bot: Bot, event: Event, state: dict):
