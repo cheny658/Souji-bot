@@ -17,7 +17,12 @@ async def get_user_info(bot: Bot, event: Event, state: dict):
         await bot.send(message='输入想要查的人吧，如/info tourist', event=event)
         return
     url = 'http://codeforces.com/api/user.info?handles=' + name
-    info_result = requests.get(url)
+    try:
+        info_result = requests.get(url)
+    except requests.exceptions.ConnectionError:
+        ret_msg = '访问api失败，重试一下吧'
+        await bot.send(message=ret_msg, event=event)
+        return
     json_obj = json.loads(info_result.text)
 
     # Structure information
