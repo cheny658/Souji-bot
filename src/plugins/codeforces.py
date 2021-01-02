@@ -8,7 +8,6 @@ from nonebot.adapters.cqhttp import Bot, Event
 user_info = on_command('info')
 @user_info.handle()
 async def get_user_info(bot: Bot, event: Event, state: dict):
-    ret_msg = ''
     cur_time = time.time()
 
     # Parse url, then get json_object
@@ -16,13 +15,14 @@ async def get_user_info(bot: Bot, event: Event, state: dict):
     if (name == ''):
         await bot.send(message='输入想要查的人吧，如/info tourist', event=event)
         return
+
     url = 'http://codeforces.com/api/user.info?handles=' + name
     try:
         info_result = requests.get(url)
     except requests.exceptions.ConnectionError:
-        ret_msg = '访问api失败，重试一下吧'
-        await bot.send(message=ret_msg, event=event)
+        await bot.send(message='访问api失败，重试一下吧', event=event)
         return
+
     json_obj = json.loads(info_result.text)
 
     # Structure information
@@ -40,6 +40,24 @@ async def get_user_info(bot: Bot, event: Event, state: dict):
             ret_msg += 'rank: ' + user_rank + '\n'
             ret_msg += 'max rating: ' + user_max_rating + '\n'
             ret_msg += 'max rank: ' + user_max_rank + '\n'
+
+            # Process the latest rating changing info
+            url = 'http://codeforces.com/api/user.rating?handle=' + name
+            try:
+                rating_changing_result = requests.get(url)
+            except requests.exceptions.ConnectionError:
+                await bot.send(message='访问api失败，重试一下吧', event=event)
+                return
+
+            latest_rating_json_obj = json.loads(rating_changing_result.text)
+            latest_rating_info = latest_rating_json_obj['result'][-1]
+            ret_msg += '最近一次在 ' + latest_rating_info['contestName'] + ' 位居第'
+            ret_msg += str(latest_rating_info['rank']) + '名\n'
+            ret_msg += 'rating变动: ' + \
+                       str(latest_rating_info['oldRating']) + ' -> ' + \
+                       str(latest_rating_info['newRating']) + '\n'
+            ret_msg += '比赛传送门: http://codeforces.com/contest/' + str(latest_rating_info['contestId']) + '\n'
+
         else:
             ret_msg += '这家伙好懒，还没打过比赛呢！\n'
 
@@ -47,9 +65,10 @@ async def get_user_info(bot: Bot, event: Event, state: dict):
         register_time = float(user_info['registrationTimeSeconds'])
         time_span = (cur_time - register_time) / (86400.0 * 365.0)
         time_span = round(time_span, 1)
-        ret_msg += '是一位练习时长' + str(time_span) + '年的算法竞赛生\n'
+        ret_msg += 'Ta是一位练习时长' + str(time_span) + '年的算法竞赛生\n'
 
     else:
+        # Can't find
         ret_msg = '没这个人！'
 
     # Send message
