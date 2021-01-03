@@ -11,7 +11,7 @@ _&#x2728; 基于 [go-cqhttp](https://github.com/Mrs4s/go-cqhttp) 和 [nonebot2](
 
 ## 简介
 
-总司bot是一个为面向算法竞赛（ [*CPC](https://oi-wiki.org/contest/icpc/) and [OI](https://oi-wiki.org/contest/oi/) ）选手的网站——Codeforces提供信息查询功能的机器人（同时也是作者本人的毕业设计）
+总司bot是一个为面向算法竞赛([*CPC](https://oi-wiki.org/contest/icpc/) and [OI](https://oi-wiki.org/contest/oi/))选手的网站——Codeforces提供信息查询功能的机器人
 
 ## 功能
 

@@ -17,7 +17,7 @@ async def get_user_info(bot: Bot, event: Event, state: dict):
     # Parse url, then get json_object
     name = str(event.message)
     if name == '':
-        await bot.send(message='输入想要查的人吧，如/info tourist', event=event)
+        await bot.send(message='输入想要查的人吧，如!info tourist', event=event)
         return
 
     url = 'http://codeforces.com/api/user.info?handles=' + name
