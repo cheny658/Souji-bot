@@ -57,7 +57,7 @@ async def get_user_info(bot: Bot, event: Event, state: dict):
             ret_msg += 'rating变动: ' + \
                        str(latest_rating_info['oldRating']) + ' -> ' + \
                        str(latest_rating_info['newRating']) + '\n'
-            ret_msg += '比赛传送门: http://codeforces.com/contest/' + str(latest_rating_info['contestId']) + '\n'
+            ret_msg += '传送门: http://codeforces.com/contest/' + str(latest_rating_info['contestId']) + '\n'
 
         else:
             ret_msg += '这家伙好懒，还没打过比赛呢！\n'
@@ -95,7 +95,7 @@ async def get_contest_info(bot: Bot, event:Event, state: dict):
             break
         ret_msg += '比赛: ' + item['name'] + '\n'
         ret_msg += '时长: ' + str(round(item['durationSeconds'] / 3600, 1)) + 'h\n'
-        ret_msg += '地址: ' + contests_url + str(item['id']) + '\n\n'
+        ret_msg += '传送门: ' + contests_url + str(item['id']) + '\n\n'
 
     if ret_msg[-1] == '\n':
         ret_msg = ret_msg[0: -1]
