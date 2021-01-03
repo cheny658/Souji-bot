@@ -7,6 +7,9 @@ from nonebot.adapters.cqhttp import Bot, Event
 
 
 user_info_cmd = on_command('info')
+contest_info_cmd = on_command('ct')
+
+
 @user_info_cmd.handle()
 async def get_user_info(bot: Bot, event: Event, state: dict):
     cur_time = time.time()
@@ -78,9 +81,8 @@ async def get_user_info(bot: Bot, event: Event, state: dict):
     await bot.send(message=ret_msg, event=event)
 
 
-contest_info_cmd = on_command('ct')
 @contest_info_cmd.handle()
-async def get_contest_info(bot: Bot, event:Event, state: dict):
+async def get_contest_info(bot: Bot, event: Event, state: dict):
     url = 'https://codeforces.com/api/contest.list?gym=false'
     try:
         contest_result = requests.get(url)
