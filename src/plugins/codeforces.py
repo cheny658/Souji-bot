@@ -5,6 +5,7 @@ from nonebot import on_command
 from nonebot.rule import to_me
 from nonebot.adapters.cqhttp import Bot, Event
 
+
 user_info_cmd = on_command('info')
 @user_info_cmd.handle()
 async def get_user_info(bot: Bot, event: Event, state: dict):
@@ -76,7 +77,26 @@ async def get_user_info(bot: Bot, event: Event, state: dict):
         ret_msg = ret_msg[0: -1]
     await bot.send(message=ret_msg, event=event)
 
+
 contest_info_cmd = on_command('ct')
 @contest_info_cmd.handle()
-async def get_contest_info(bot: Bot, event: Event, state: dict):
+async def get_contest_info(bot: Bot, event:Event, state: dict):
+    url = 'https://codeforces.com/api/contest.list?gym=false'
+    try:
+        contest_result = requests.get(url)
+    except requests.exceptions.ConnectionError:
+        await bot.send(message='访问api失败，重试一下吧', event=event)
+        return
+    contest_json = json.loads(contest_result.text)
+    ret_msg = '近期的比赛: \n'
+    contests_url = 'https://codeforces.com/contests/'
+    for item in contest_json['result']:
+        if item['phase'] == 'FINISHED':
+            break
+        ret_msg += '比赛: ' + item['name'] + '\n'
+        ret_msg += '时长: ' + str(round(item['durationSeconds'] / 3600, 1)) + 'h\n'
+        ret_msg += '地址: ' + contests_url + str(item['id']) + '\n\n'
 
+    if ret_msg[-1] == '\n':
+        ret_msg = ret_msg[0: -1]
+    await bot.send(message=ret_msg, event=event)
