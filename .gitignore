@@ -4,3 +4,4 @@ venv
 local_server
 __pycache__
 test.py
+image_test.py
