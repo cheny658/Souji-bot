@@ -1,11 +1,11 @@
 from PIL import Image, ImageFont, ImageDraw
 
 def getOriginImage(rows):
-    ret = Image.new(mode='RGBA', size=(1080, 70 * rows), color=(255, 255, 255))
+    ret = Image.new(mode='RGBA', size=(1080, 70 * rows), color=(167, 220, 224))
     return ret
 
 def draw(text):
-    img = Image.new(mode='RGBA', size=(1080, 70), color=(255, 255, 255))
+    img = Image.new(mode='RGBA', size=(1080, 70), color=(167, 220, 224))
     draw = ImageDraw.Draw(img)
     draw.text((10, 10), text, font=ImageFont.truetype('./simsun.ttc', 50), fill='#000000', direction=None)
     return img
