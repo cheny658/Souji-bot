@@ -20,6 +20,8 @@ _&#x2728; 基于 [go-cqhttp](https://github.com/Mrs4s/go-cqhttp) 和 [nonebot2](
 | [!help]    | [查询可用的指令]                   |
 | [!info]  | [查询选手信息]                      |
 | [!ct]   | [查询未来的比赛信息]                    |
+| [!roll]   | [随机数功能]                    |
+| [!sup]   | [支持开发者]                    |
 
 ## 声明
 
