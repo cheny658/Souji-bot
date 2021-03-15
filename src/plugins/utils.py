@@ -23,7 +23,7 @@ async def get_roll_pts(bot: Bot, event: Event, stat: dict):
     elif box[0].isdigit() == False or box[1].isdigit() == False:
         flag = True
     if flag:
-        await bot.send(message='无效参数，请给定随机数区间如: !roll 0 100', event=event)
+        await bot.send(message='无效参数，请给定随机数区间如!roll 0 100', event=event)
         return
     left = min(int(box[0]), int(box[1]))
     right = max(int(box[0]), int(box[1]))
