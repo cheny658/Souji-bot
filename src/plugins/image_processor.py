@@ -10,7 +10,7 @@ def getOriginImage(rows):
     return ret
 
 def img_save(img: Image, file_name):
-    save_path = '../local_server/go-cqhttp/data/images/' + file_name
+    save_path = '../../go-cqhttp/data/images/' + file_name
     img.save(save_path)
 
 def draw(text):
