@@ -4,5 +4,5 @@ from nonebot.adapters.cqhttp import Bot, Event
 help_cmd = on_command('sup')
 @help_cmd.handle()
 async def get_help(bot: Bot, event: Event, stat: dict):
-    ret_msg = '[CQ:image,file=pay.png]'
+    ret_msg = '[CQ:image,file=sup.png]'
     await bot.send(message=ret_msg, event=event)

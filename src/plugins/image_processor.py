@@ -9,6 +9,10 @@ def getOriginImage(rows):
     ret = Image.new(mode='RGBA', size=(2160, 70 * rows), color=(R, G, B))
     return ret
 
+def img_save(img: Image, file_name):
+    save_path = '../local_server/go-cqhttp/data/images/' + file_name
+    img.save(save_path)
+
 def draw(text):
     img = Image.new(mode='RGBA', size=(2160, 70), color=(R, G, B))
     draw = ImageDraw.Draw(img)

@@ -6,7 +6,7 @@ from nonebot import on_command
 from nonebot.rule import to_me
 from nonebot.adapters.cqhttp import Bot, Event
 sys.path.append('./plugins')
-from image_processor import img_splice
+from image_processor import img_splice, img_save
 
 
 user_info_cmd = on_command('info')
@@ -74,10 +74,8 @@ async def get_user_info(bot: Bot, event: Event, state: dict):
         info_box.append('Ta是一位练习时长' + str(time_span) + '年的算法竞赛生')
 
         ret_img = img_splice(info_box)
-
         file_name = user_info['handle'] + '_user_info.png'
-        save_path = '../local_server/go-cqhttp/data/images/' + file_name
-        ret_img.save(save_path)
+        img_save(ret_img, file_name)
         ret_msg = '[CQ:image,file=' + file_name + ']'
         await bot.send(message=ret_msg, event=event)
 
@@ -106,8 +104,7 @@ async def get_contest_info(bot: Bot, event: Event, state: dict):
 
     ret_img = img_splice(info_box)
     file_name = 'contest.png'
-    save_path = '../local_server/go-cqhttp/data/images/' + file_name
-    ret_img.save(save_path)
+    img_save(ret_img, file_name)
     ret_msg = '[CQ:image,file=' + file_name + ']'
 
     await bot.send(message=ret_msg, event=event)
