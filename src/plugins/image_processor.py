@@ -1,3 +1,4 @@
+import platform
 from PIL import Image, ImageFont, ImageDraw
 
 R = 255
@@ -16,7 +17,11 @@ def img_save(img: Image, file_name):
 def draw(text):
     img = Image.new(mode='RGBA', size=(2160, 70), color=(R, G, B))
     draw = ImageDraw.Draw(img)
-    draw.text((10, 10), text, font=ImageFont.truetype('./simsun.ttc', 50), fill='#000000', direction=None)
+    if platform.system().lower() == 'windows':
+        font = './simsun.ttc'
+    elif platform.system().lower() == 'linux':
+        font = './DejaVuSansMono-Bold.ttf'
+    draw.text((10, 10), text, font=ImageFont.truetype(font, 50), fill='#000000', direction=None)
     return img
 
 def img_splice(info_box):
