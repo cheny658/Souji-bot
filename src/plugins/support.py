@@ -1,8 +1,8 @@
 from nonebot import on_command
 from nonebot.adapters.cqhttp import Bot, Event
 
-help_cmd = on_command('sup')
-@help_cmd.handle()
-async def get_help(bot: Bot, event: Event, stat: dict):
+sup_cmd = on_command('sup')
+@sup_cmd.handle()
+async def get_sup(bot: Bot, event: Event, stat: dict):
     ret_msg = '[CQ:image,file=sup.png]'
     await bot.send(message=ret_msg, event=event)
