@@ -18,10 +18,10 @@ def draw(text):
     img = Image.new(mode='RGBA', size=(2160, 70), color=(R, G, B))
     draw = ImageDraw.Draw(img)
     if platform.system().lower() == 'windows':
-        font = './simsun.ttc'
+        font = './msyh.ttc'
     elif platform.system().lower() == 'linux':
-        font = './DejaVuSansMono-Bold.ttf'
-    draw.text((10, 10), text, font=ImageFont.truetype(font, 50), fill='#000000', direction=None)
+        font = '/usr/share/fonts/truetype/windows_font/msyh.ttc'
+    draw.text((10, 10), text, font=ImageFont.truetype(font, 50, encoding='utf-8'), fill='#000000', direction=None)
     return img
 
 def img_splice(info_box):
