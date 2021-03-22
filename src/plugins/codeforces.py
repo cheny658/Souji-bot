@@ -2,6 +2,7 @@ import requests
 import json
 import time
 import sys
+import pymysql
 from nonebot import on_command
 from nonebot.rule import to_me
 from nonebot.adapters.cqhttp import Bot, Event
@@ -9,23 +10,21 @@ sys.path.append('./plugins')
 from image_processor import img_splice, img_save
 
 
-user_info_cmd = on_command('info')
-@user_info_cmd.handle()
-async def get_user_info(bot: Bot, event: Event, state: dict):
+def user_info_processor(event: Event):
     cur_time = time.time()
 
     # Parse url, then get json_object
     name = str(event.message)
     if name == '':
-        await bot.send(message='输入想要查的人吧，如!info tourist', event=event)
-        return
+        ret_msg = '输入想要查的人吧，如!info tourist'
+        return ret_msg
 
     url = 'http://codeforces.com/api/user.info?handles=' + name
     try:
         info_result = requests.get(url)
     except requests.exceptions.ConnectionError:
-        await bot.send(message='访问api失败，重试一下吧', event=event)
-        return
+        ret_msg = '访问api失败，重试一下吧'
+        return ret_msg
 
     info_box = []
     json_obj = json.loads(info_result.text)
@@ -50,8 +49,8 @@ async def get_user_info(bot: Bot, event: Event, state: dict):
             try:
                 rating_changing_result = requests.get(url)
             except requests.exceptions.ConnectionError:
-                await bot.send(message='访问api失败，重试一下吧', event=event)
-                return
+                ret_msg = '访问api失败，重试一下吧'
+                return ret_msg
 
             latest_rating_json_obj = json.loads(rating_changing_result.text)
             latest_rating_info = latest_rating_json_obj['result'][-1]
@@ -77,11 +76,39 @@ async def get_user_info(bot: Bot, event: Event, state: dict):
         file_name = user_info['handle'] + '_user_info.png'
         img_save(ret_img, file_name)
         ret_msg = '[CQ:image,file=' + file_name + ']'
-        await bot.send(message=ret_msg, event=event)
-
+        return ret_msg
     else:
         # Can't find
-        await bot.send(message='没这个人！', event=event)
+        ret_msg = '没这个人！'
+        return ret_msg
+
+
+user_info_cmd = on_command('info')
+@user_info_cmd.handle()
+async def get_user_info(bot: Bot, event: Event, state: dict):
+    ret_msg = user_info_processor(event)
+    await bot.send(message=ret_msg, event=event)
+
+
+infome_cmd = on_command('infome')
+@infome_cmd.handle()
+async def get_myinfo(bot: Bot, event: Event, state: dict):
+    qq_id = str(event.user_id)
+    db = pymysql.connect(host='localhost', user="root", password="Mynameischeny658", database='botdb')
+    cursor = db.cursor()
+    sql_check = "SELECT * FROM bot_users_tbl WHERE qq_id = '%s'" % qq_id
+    cursor.execute(sql_check)
+    result = cursor.fetchall()
+    if len(result) == 0:
+        ret_msg = ''
+        if event.detail_type == 'group':
+            ret_msg = '[CQ:at,qq=%s]' % qq_id
+        ret_msg = ret_msg + '尚未绑定，请使用setid指令绑定Codeforces账号'
+        await bot.send(message=ret_msg, event=event)
+    else:
+        event.message = result[0][1]
+        ret_msg = user_info_processor(event)
+        await bot.send(message=ret_msg, event=event)
 
 
 contest_info_cmd = on_command('ct')

@@ -3,13 +3,13 @@ from nonebot.adapters.cqhttp import Bot, Event
 import numpy as np
 
 ping_cmd = on_command('ping')
-roll_cmd = on_command('roll')
-
 @ping_cmd.handle()
 async def get_ping_info(bot: Bot, event: Event, stat: dict):
     ret_msg = 'pong'
     await bot.send(message=ret_msg, event=event)
 
+
+roll_cmd = on_command('roll')
 @roll_cmd.handle()
 async def get_roll_pts(bot: Bot, event: Event, stat: dict):
     event_msg = str(event.message)
