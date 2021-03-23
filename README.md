@@ -15,7 +15,9 @@ _&#x2728; 基于 [go-cqhttp](https://github.com/Mrs4s/go-cqhttp) 和 [nonebot2](
 
 ## 功能
 <details>
-### 已支持的功能
+
+<summary>已支持的功能</summary>
+
 | 指令        | 功能                        |
 | ------------ | --------------------------- |
 | [!help]    | [查询可用的指令]                   |
@@ -28,6 +30,7 @@ _&#x2728; 基于 [go-cqhttp](https://github.com/Mrs4s/go-cqhttp) 和 [nonebot2](
 | [!ping]  | [网络测试指令]                      |
 | [!sup]   | [支持开发者]                    |
 </details>
+
 ## 声明
 
-本项目使用完全免费，交流群874414383。
+本项目使用完全免费，交流群874414383
