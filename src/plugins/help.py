@@ -7,11 +7,15 @@ help_cmd = on_command('help')
 async def get_help(bot: Bot, event: Event, stat: dict):
     info_box = []
     info_box.append('总司bot是一个用于查询codeforces信息的机器人')
-    info_box.append('!info: 查询个人信息')
-    info_box.append('!ct: 查询近期比赛')
+    info_box.append('!info: 查询选手信息')
+    info_box.append('!setid: 绑定指令')
+    info_box.append('!unset: 解除绑定')
+    info_box.append('!infome: 查询绑定账号的信息')
+    info_box.append('!ct: 查询未来的比赛信息')
     info_box.append('!sup: 打钱')
     info_box.append('!roll: 随机数指令')
-    info_box.append('!ping: 检测指令')
+    info_box.append('!ping: 网络测试指令')
+
     info_box.append('新功能绝赞开发中...')
 
     ret_img = img_splice(info_box)
