@@ -94,7 +94,7 @@ infome_cmd = on_command('infome')
 @infome_cmd.handle()
 async def get_myinfo(bot: Bot, event: Event, state: dict):
     qq_id = str(event.user_id)
-    db = pymysql.connect(host='localhost', user="root", password="Mynameischeny658", database='botdb')
+    db = pymysql.connect(host='localhost', user="botdb_root", password="Mynameischeny658", database='botdb')
     cursor = db.cursor()
     sql_check = "SELECT * FROM bot_users_tbl WHERE qq_id = '%s'" % qq_id
     cursor.execute(sql_check)

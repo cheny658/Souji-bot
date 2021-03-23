@@ -8,7 +8,7 @@ setid_cmd = on_command('setid')
 @setid_cmd.handle()
 async def set_id(bot: Bot, event: Event, state: dict):
     qq_id = str(event.user_id)
-    db = pymysql.connect(host='localhost', user="root", password="Mynameischeny658", database='botdb')
+    db = pymysql.connect(host='localhost', user="botdb_root", password="Mynameischeny658", database='botdb')
     cursor = db.cursor()
     sql_check = "SELECT * FROM bot_users_tbl WHERE qq_id = '%s'" % qq_id
     cursor.execute(sql_check)
@@ -50,7 +50,7 @@ unset_cmd = on_command('unset')
 @unset_cmd.handle()
 async def unset(bot: Bot, event: Event, state: dict):
     qq_id = str(event.user_id)
-    db = pymysql.connect(host='localhost', user="root", password="Mynameischeny658", database='botdb')
+    db = pymysql.connect(host='localhost', user="botdb_root", password="Mynameischeny658", database='botdb')
     cursor = db.cursor()
     sql_check = "SELECT * FROM bot_users_tbl WHERE qq_id = '%s'" % qq_id
     cursor.execute(sql_check)
