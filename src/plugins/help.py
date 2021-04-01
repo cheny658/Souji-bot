@@ -6,3 +6,4 @@ help_cmd = on_command('help')
 async def get_help(bot: Bot, event: Event, stat: dict):
     ret_msg = '[CQ:image,file=bot-help.png]'
     await bot.send(message=ret_msg, event=event)
+
