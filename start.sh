@@ -4,3 +4,4 @@ cp data/cqhttp-json/config.hjson ../go-cqhttp/
 echo "Copied config.hjson to service"
 cp data/images/bot-help.png ../go-cqhttp/data/images
 echo "Copied bot-help.png to service data"
+cp data/voices/cnm.mp3 ../go-cqhttp/data/voices

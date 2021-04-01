@@ -1,6 +1,5 @@
 from nonebot import on_command
 from nonebot.adapters.cqhttp import Bot, Event
-from image_processor import img_splice, img_save
 
 help_cmd = on_command('help')
 @help_cmd.handle()
