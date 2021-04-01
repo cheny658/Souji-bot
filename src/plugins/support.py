@@ -7,4 +7,4 @@ async def get_sup(bot: Bot, event: Event, stat: dict):
     ret_msg = '[CQ:image,file=sup.png]'
     await bot.send(message=ret_msg, event=event)
     ret_msg = '[CQ:record,file=thx.png]'
-    await bot.send(message=ret_msg, event=event
+    await bot.send(message=ret_msg, event=event)
