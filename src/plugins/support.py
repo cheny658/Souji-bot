@@ -6,5 +6,5 @@ sup_cmd = on_command('sup')
 async def get_sup(bot: Bot, event: Event, stat: dict):
     ret_msg = '[CQ:image,file=sup.png]'
     bot.send(message=ret_msg, event=event)
-    ret_msg = '[CQ:record,file=thx.png]'
+    ret_msg = '[CQ:record,file=thx.mp3]'
     await bot.send(message=ret_msg, event=event)
