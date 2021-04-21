@@ -3,6 +3,7 @@ import json
 import time
 import sys
 import pymysql
+import datetime
 from nonebot import on_command
 from nonebot.rule import to_me
 from nonebot.adapters.cqhttp import Bot, Event
@@ -126,6 +127,7 @@ async def get_contest_info(bot: Bot, event: Event, state: dict):
         if item['phase'] == 'FINISHED':
             break
         info_box.append('比赛: ' + item['name'])
+        info_box.append('日期: ' + str(datetime.datetime.fromtimestamp(item['startTimeSeconds'])))
         info_box.append('时长: ' + str(round(item['durationSeconds'] / 3600, 1)) + 'h')
         info_box.append('Contest ID: ' + str(item['id']))
 
