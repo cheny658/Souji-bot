@@ -125,6 +125,7 @@ async def get_contest_info(bot: Bot, event: Event, state: dict):
     info_box = ['近期的比赛: \n']
     for item in contest_json['result']:
         if item['phase'] == 'FINISHED':
+            info_box.pop()
             break
         info_box.append('比赛: ' + item['name'])
         info_box.append('日期: ' + str(datetime.datetime.fromtimestamp(item['startTimeSeconds'])))
