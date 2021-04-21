@@ -130,6 +130,7 @@ async def get_contest_info(bot: Bot, event: Event, state: dict):
         info_box.append('日期: ' + str(datetime.datetime.fromtimestamp(item['startTimeSeconds'])))
         info_box.append('时长: ' + str(round(item['durationSeconds'] / 3600, 1)) + 'h')
         info_box.append('Contest ID: ' + str(item['id']))
+        info_box.append(' ')
 
     ret_img = img_splice(info_box)
     file_name = 'contest.png'
