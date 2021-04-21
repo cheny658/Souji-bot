@@ -132,7 +132,7 @@ async def get_contest_info(bot: Bot, event: Event, state: dict):
         durationSeconds = item['durationSeconds']
         hours = durationSeconds // 3600
         minutes = (durationSeconds - hours * 3600) // 60
-        info_box.append('时长: ' + str(hours) + 'h' + minutes + 'min')
+        info_box.append('时长: ' + str(hours) + 'h' + str(minutes) + 'min')
         info_box.append('Contest ID: ' + str(item['id']))
         info_box.append(' ')
 
